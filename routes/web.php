@@ -8,8 +8,23 @@ use App\Models\{
     Module,
     Permission,
     Image,
+    Tag,
 };
 use Illuminate\Support\Facades\Route;
+Route::get('/many-to-many-polymorphic', function(){
+    // $user = User::first();
+    // // Tag::create(['name' => 'tag1', 'color' => 'blue']);
+    // // Tag::create(['name' => 'tag2', 'color' => 'green']);
+    // // Tag::create(['name' => 'tag3', 'color' => 'red']);
+    // $course = Course::first();
+    // // $user->tags()->attach(1);
+    // $course->tags()->attach(3);
+    // dd($course->tags);
+
+    $tag = Tag::find(3);
+    // $tag = Tag::where('name', 'tag3')->first();
+    dd($tag->courses);
+});
 
 Route::get('/one-to-many-polymorphic', function() {
     Course::create(['name' => 'Laravel Relationships',]);
