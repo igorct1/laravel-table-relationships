@@ -6,8 +6,27 @@ use App\Models\{
     Course,
     Module,
     Permission,
+    Image,
 };
 use Illuminate\Support\Facades\Route;
+Route::get('/one-to-one-polymorphic', function () {
+    $user = User::find(1);
+    $data = ['path' => 'path/newPath'];
+    //deletar
+    // $user->image->delete();
+    // se já existir alguma foto e o usuario passar novos dados, atualizar
+    if($user->image){
+        $user->image()->update($data);
+    } else { // se não existir, criar
+        // $user->image()->save(
+        //     new Image(
+        //         ['path' => 'path/nome-image.png']),
+        // );
+        // segunda opção de create, mas a de cima é melhor.
+        $user->image()->create(['path' => 'path/nome-image2.png']);
+    }
+    dd($user->image);
+});
 
 Route::get('/many-to-many-pivot', function(){
     $user = User::with('permissions')->find(1);
