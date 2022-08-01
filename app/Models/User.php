@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Preference::class);
     }
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }
