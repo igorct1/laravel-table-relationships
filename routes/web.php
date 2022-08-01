@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\{
+    Comment,
     User,
     Preference,
     Course,
@@ -9,6 +10,20 @@ use App\Models\{
     Image,
 };
 use Illuminate\Support\Facades\Route;
+
+Route::get('/one-to-many-polymorphic', function() {
+    Course::create(['name' => 'Laravel Relationships',]);
+    $course = Course::first();
+    // $comment = $course->comments()->create([
+    //     'subject' => 'blablablaa',
+    //     'content' => 'blablabla2',
+    // ]);
+
+    // dd($course->comments);
+
+    $comment = Comment::first();
+    dd($comment->commentable->name); // Laravel Relationships
+});
 Route::get('/one-to-one-polymorphic', function () {
     $user = User::find(1);
     $data = ['path' => 'path/newPath'];
