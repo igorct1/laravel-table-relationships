@@ -8,12 +8,22 @@ use App\Models\{
     Permission,
 };
 use Illuminate\Support\Facades\Route;
-// Route::get('/many-to-many-pivot', function () {
-//     $user = User::with('permissions')->find(1);
 
-//     dd($user);
-// });
-
+Route::get('/many-to-many-pivot', function(){
+    $user = User::with('permissions')->find(1);
+    //adicionar nova permissão setando um valor false para a coluna active
+    // $user->permissions()->attach([
+    //     4 => ['active' => false],
+    //     3 => ['active' => false],
+    // ]);
+    // listar todas os pivots
+    foreach ($user->permissions as $permission) {
+        echo "{$permission->name} <br>";
+        // return $permission->pivot->active; // 1
+    }
+    $user->refresh();
+    // return $user->permissions;
+});
 
 Route::get('/many-to-many', function(){
     $user = User::with('permissions')->find(1);
@@ -23,11 +33,10 @@ Route::get('/many-to-many', function(){
     //     Permission::find(1),
     //     // Permission::find(2),
     // ]);
-    // $user->permissions()->sync([1]);
     // $user->permissions()->attach([1]);
-    $user->permissions()->detach([1]);
+    // $user->permissions()->detach([1]);
 
-
+    $user->refresh();
     dd($user->permissions);
 });
 
